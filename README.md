@@ -1,116 +1,249 @@
-# Vehicle-Service-Record-System-In-Java
-🚗 Vehicle Service Record Management System (Java AWT)
+import java.awt.*;
+import java.awt.event.*;
 
-A desktop-based Vehicle Service Record Management System built using Java AWT, designed to manage vehicle service details with secure login authentication and a clean dark-themed interface.
+public class VehicleServiceAWT extends Frame implements ActionListener {
 
-This application is useful for service centers to record, view and manage vehicle service information in a structured and user-friendly way.
+    Label lUser, lPass, lMsg;
+    TextField tUser, tPass;
+    Button bLogin;
 
-✨ Features
+    Label lGreet, lVehicle, lVno, lOwner, lService, lDate, lCost;
+    TextField tVno, tOwner, tDate, tCost;
+    Choice cVehicle, cService;
+    Button bSubmit, bClear, bExit;
+    TextArea ta;
 
-🔐 Login Authentication System
+    String loggedUser = "";
 
-👤 Separate login access for multiple users
+    Color bgColor = new Color(30, 30, 30);
+    Color fieldColor = new Color(60, 60, 60);
+    Color textColor = Color.WHITE;
 
-🚘 Dynamic Vehicle List based on logged-in user
+    VehicleServiceAWT() {
 
-🛠️ Multiple Service Types
+        setTitle("Vehicle Service Record Management System");
+        setSize(650, 700);
+        setLayout(null);
+        setBackground(bgColor);
 
-📝 Vehicle service data entry form
+        Font f = new Font("Arial", Font.BOLD, 12);
 
-📄 Live preview of submitted records
+        lUser = new Label("Username:");
+        lUser.setBounds(220, 140, 100, 20);
+        lUser.setForeground(textColor);
+        add(lUser);
 
-🧹 Clear & Exit controls
+        tUser = new TextField();
+        tUser.setBounds(330, 140, 140, 22);
+        tUser.setBackground(fieldColor);
+        tUser.setForeground(Color.WHITE);
+        add(tUser);
 
-🌙 Modern Dark UI Theme
+        lPass = new Label("Password:");
+        lPass.setBounds(220, 180, 100, 20);
+        lPass.setForeground(textColor);
+        add(lPass);
 
-🧑‍💻 Login Credentials (Demo)
-Username	Password
-Abhiram	Abhiram008
-Ankit	Ankit008
-📋 Service Form Fields
+        tPass = new TextField();
+        tPass.setEchoChar('*');
+        tPass.setBounds(330, 180, 140, 22);
+        tPass.setBackground(fieldColor);
+        tPass.setForeground(Color.WHITE);
+        add(tPass);
 
-Vehicle Type (Dynamic Choice Menu)
+        bLogin = new Button("LOGIN");
+        bLogin.setBounds(300, 230, 80, 30);
+        bLogin.setBackground(new Color(0, 153, 76));
+        bLogin.setForeground(Color.WHITE);
+        bLogin.setFont(f);
+        add(bLogin);
 
-Vehicle Number
+        lMsg = new Label("");
+        lMsg.setBounds(220, 270, 300, 20);
+        lMsg.setForeground(Color.RED);
+        add(lMsg);
 
-Owner Name
+        bLogin.addActionListener(this);
 
-Service Type
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                dispose();
+            }
+        });
 
-General Service
+        setVisible(true);
+    }
 
-Oil Change
+    void openServiceScreen() {
 
-Engine Repair
+        removeAll();
+        repaint();
+        setBackground(bgColor);
 
-Full Service
+        Font f = new Font("Arial", Font.BOLD, 12);
 
-Service Date
+        lGreet = new Label("Hello " + loggedUser);
+        lGreet.setBounds(260, 40, 250, 20);
+        lGreet.setForeground(Color.GREEN);
+        add(lGreet);
 
-Service Cost
+        lVehicle = new Label("Vehicle Type:");
+        lVehicle.setBounds(80, 90, 120, 20);
+        lVehicle.setForeground(textColor);
+        add(lVehicle);
 
-🛠️ Technologies Used
+        cVehicle = new Choice();
 
-Java
+        if (loggedUser.equals("Ankit")) {
+            cVehicle.add("Scorpio S11");
+            cVehicle.add("Bolero");
+            cVehicle.add("RE Standard 350");
+            cVehicle.add("Fortuner");
+            cVehicle.add("Tata Truck");
+        } else {
+            cVehicle.add("Honda Amaze");
+            cVehicle.add("Classic 350");
+            cVehicle.add("Tata Trolley");
+            cVehicle.add("Dumper");
+        }
 
-Java AWT (Abstract Window Toolkit)
+        cVehicle.setBounds(230, 90, 260, 22);
+        cVehicle.setBackground(fieldColor);
+        cVehicle.setForeground(Color.WHITE);
+        add(cVehicle);
 
-🚀 How to Run the Project
+        lVno = new Label("Vehicle No:");
+        lVno.setBounds(80, 130, 120, 20);
+        lVno.setForeground(textColor);
+        add(lVno);
 
-Clone the repository
+        tVno = new TextField();
+        tVno.setBounds(230, 130, 260, 22);
+        tVno.setBackground(fieldColor);
+        tVno.setForeground(Color.WHITE);
+        add(tVno);
 
-git clone https://github.com/your-username/vehicle-service-awt.git
+        lOwner = new Label("Owner Name:");
+        lOwner.setBounds(80, 170, 120, 20);
+        lOwner.setForeground(textColor);
+        add(lOwner);
 
+        tOwner = new TextField();
+        tOwner.setBounds(230, 170, 260, 22);
+        tOwner.setBackground(fieldColor);
+        tOwner.setForeground(Color.WHITE);
+        add(tOwner);
 
-Compile the program
+        lService = new Label("Service Type:");
+        lService.setBounds(80, 210, 120, 20);
+        lService.setForeground(textColor);
+        add(lService);
 
-javac VehicleServiceAWT.java
+        cService = new Choice();
+        cService.add("General Service");
+        cService.add("Oil Change");
+        cService.add("Engine Repair");
+        cService.add("Full Service");
+        cService.setBounds(230, 210, 260, 22);
+        cService.setBackground(fieldColor);
+        cService.setForeground(Color.WHITE);
+        add(cService);
 
+        lDate = new Label("Service Date:");
+        lDate.setBounds(80, 250, 120, 20);
+        lDate.setForeground(textColor);
+        add(lDate);
 
-Run the program
+        tDate = new TextField();
+        tDate.setBounds(230, 250, 260, 22);
+        tDate.setBackground(fieldColor);
+        tDate.setForeground(Color.WHITE);
+        add(tDate);
 
-java VehicleServiceAWT
+        lCost = new Label("Cost:");
+        lCost.setBounds(80, 290, 120, 20);
+        lCost.setForeground(textColor);
+        add(lCost);
 
-📸 Application Flow
+        tCost = new TextField();
+        tCost.setBounds(230, 290, 260, 22);
+        tCost.setBackground(fieldColor);
+        tCost.setForeground(Color.WHITE);
+        add(tCost);
 
-User logs in using valid credentials
+        bSubmit = new Button("SUBMIT");
+        bSubmit.setBounds(120, 340, 90, 30);
+        bSubmit.setBackground(new Color(0, 153, 76));
+        bSubmit.setForeground(Color.WHITE);
+        add(bSubmit);
 
-Vehicle selection menu appears based on user
+        bClear = new Button("CLEAR");
+        bClear.setBounds(270, 340, 90, 30);
+        bClear.setBackground(new Color(255, 153, 51));
+        add(bClear);
 
-Enter service details
+        bExit = new Button("EXIT");
+        bExit.setBounds(420, 340, 90, 30);
+        bExit.setBackground(new Color(204, 0, 0));
+        bExit.setForeground(Color.WHITE);
+        add(bExit);
 
-Click SUBMIT to generate service record
+        ta = new TextArea();
+        ta.setBounds(80, 390, 480, 220);
+        ta.setBackground(new Color(50, 50, 50));
+        ta.setForeground(Color.WHITE);
+        add(ta);
 
-Use CLEAR to reset or EXIT to close the application
+        bSubmit.addActionListener(this);
+        bClear.addActionListener(this);
+        bExit.addActionListener(this);
 
-🎯 Use Case
+        setVisible(true);
+    }
 
-This application can be used in:
+    public void actionPerformed(ActionEvent e) {
 
-Automobile Service Centers
+        if (e.getSource() == bLogin) {
 
-Small Garages
+            if (tUser.getText().equals("Abhiram") && tPass.getText().equals("Abhiram008")) {
+                loggedUser = "Abhiram";
+                openServiceScreen();
+            }
+            else if (tUser.getText().equals("Ankit") && tPass.getText().equals("Ankit008")) {
+                loggedUser = "Ankit";
+                openServiceScreen();
+            }
+            else {
+                lMsg.setText("Invalid Login Details");
+            }
+        }
 
-Vehicle Maintenance Offices
+        if (e.getSource() == bSubmit) {
+            ta.setText(
+                "User: " + loggedUser + "\n" +
+                "Vehicle: " + cVehicle.getSelectedItem() + "\n" +
+                "Vehicle No: " + tVno.getText() + "\n" +
+                "Owner: " + tOwner.getText() + "\n" +
+                "Service: " + cService.getSelectedItem() + "\n" +
+                "Date: " + tDate.getText() + "\n" +
+                "Cost: " + tCost.getText()
+            );
+        }
 
-College Java Mini Projects
+        if (e.getSource() == bClear) {
+            tVno.setText("");
+            tOwner.setText("");
+            tDate.setText("");
+            tCost.setText("");
+            ta.setText("");
+        }
 
-📌 Future Enhancements
+        if (e.getSource() == bExit) {
+            dispose();
+        }
+    }
 
-Database integration (MySQL)
-
-Admin dashboard
-
-Record history storage
-
-PDF report generation
-
-Date picker support
-
-🏆 Author
-
-Ankit Anand Verma
-BSc (Hons) Computer Science
-Siva Sivani Degree College
-
-
+    public static void main(String[] args) {
+        new VehicleServiceAWT();
+    }
+}
